@@ -15,7 +15,7 @@ public class chatController {
         this.chatService = chatService;
     }
 
-    @GetMapping("/api")
+    @GetMapping("/ai")
     public String useAi(@RequestParam(required = true) String userInput) {
         return chatService.generateResponse(userInput);
     }

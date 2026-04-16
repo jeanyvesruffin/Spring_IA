@@ -91,6 +91,6 @@ Chat Autoconfiguration Application is running...
 Sinon vous pouvez questionner votre IA à l'aide d'un navigateur, exemple :
 
 
-[http://localhost:8086/api?userInput=Donne moi la recette du colombo](http://localhost:8086/api?userInput=Donne%20moi%20la%20recette%20du%20colombo)
+[http://localhost:8086/ai?userInput=Donne moi la recette du colombo](http://localhost:8086/ai?userInput=Donne%20moi%20la%20recette%20du%20colombo)
 
 ---
