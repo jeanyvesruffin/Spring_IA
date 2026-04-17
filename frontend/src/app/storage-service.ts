@@ -1,24 +1,24 @@
 import { inject, Injectable } from '@angular/core';
-import { Config } from './config';
-import { RequestRecord } from './request-record';
+import { ConfigService } from './config-service';
+import { RequestRecordInterface } from './request-record-interface';
 
 const STORAGE_KEY = 'chat_history_v1';
 
 @Injectable({ providedIn: 'root' })
-export class Storage {
-  private configuration = inject(Config);
+export class StorageService {
+  private configuration = inject(ConfigService);
 
-  private read(): RequestRecord[] {
+  private read(): RequestRecordInterface[] {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
-      return data ? (JSON.parse(data) as RequestRecord[]) :[];
+      return data ? (JSON.parse(data) as RequestRecordInterface[]) :[];
     } catch (error) {
       console.error('Error reading from localStorage', error);
       return [];
     }
   }
 
-  private write(records: RequestRecord[]) {
+  private write(records: RequestRecordInterface[]) {
     try {
       const max = this.configuration.getMaxHistory();
       const toStore = records.slice(-max);
@@ -28,8 +28,8 @@ export class Storage {
     }
   }
 
-  saveRequest(record: Partial<RequestRecord> & { input: string }) {
-    const newRecord: RequestRecord = {
+  saveRequest(record: Partial<RequestRecordInterface> & { input: string }) {
+    const newRecord: RequestRecordInterface = {
       id: record.id ?? `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       input: record.input,
       response: record.response,
@@ -40,7 +40,7 @@ export class Storage {
     this.write(listRecords);
   }
 
-  getHistory(): RequestRecord[] {
+  getHistory(): RequestRecordInterface[] {
     return this.read();
   }
 

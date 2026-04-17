@@ -1,4 +1,4 @@
-export interface RequestRecord {
+export interface RequestRecordInterface {
   id: string;
   input: string;
   response?: string;

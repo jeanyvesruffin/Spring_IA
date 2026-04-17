@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Storage } from './storage';
-import { Config } from './config';
+import { StorageService } from './storage-service';
+import { ConfigService } from './config-service';
 
-describe('Storage', () => {
+describe('StorageService', () => {
   beforeEach(() => {
     // Ensure a safe localStorage mock exists for the test environment
     if (typeof (globalThis as any).localStorage === 'undefined' || typeof (globalThis as any).localStorage.getItem !== 'function') {
@@ -43,13 +43,13 @@ describe('Storage', () => {
 
   it('should be created', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Storage);
+    const service = TestBed.inject(StorageService);
     expect(service).toBeTruthy();
   });
 
   it('saveRequest stores a record in localStorage', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Storage);
+    const service = TestBed.inject(StorageService);
 
     service.saveRequest({ input: 'hello world' });
 
@@ -62,7 +62,7 @@ describe('Storage', () => {
 
   it('clearHistory removes all records', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Storage);
+    const service = TestBed.inject(StorageService);
 
     service.saveRequest({ input: 'one' });
     service.saveRequest({ input: 'two' });
@@ -74,9 +74,9 @@ describe('Storage', () => {
 
   it('enforces max history from Config (keeps last N entries)', () => {
     TestBed.configureTestingModule({
-      providers: [{ provide: Config, useValue: { getMaxHistory: () => 1 } as unknown as Config }],
+      providers: [{ provide: ConfigService, useValue: { getMaxHistory: () => 1 } as unknown as ConfigService }],
     });
-    const service = TestBed.inject(Storage);
+    const service = TestBed.inject(StorageService);
 
     service.saveRequest({ input: 'first' });
     service.saveRequest({ input: 'second' });
@@ -91,7 +91,7 @@ describe('Storage', () => {
     try {
       localStorage.setItem('chat_history_v1', 'not valid json');
       TestBed.configureTestingModule({});
-      const service = TestBed.inject(Storage);
+      const service = TestBed.inject(StorageService);
 
       const history = service.getHistory();
       expect(Array.isArray(history)).toBeTruthy();
@@ -99,5 +99,14 @@ describe('Storage', () => {
     } finally {
       spy.mockRestore();
     }
+  });
+
+  it('getHistory returns stored records', () => {
+    TestBed.configureTestingModule({});
+    const service = TestBed.inject(StorageService);
+    service.saveRequest({ input: 'abc' });
+    const history = service.getHistory();
+    expect(history.length).toBeGreaterThanOrEqual(1);
+    expect(history[history.length - 1].input).toBe('abc');
   });
 });

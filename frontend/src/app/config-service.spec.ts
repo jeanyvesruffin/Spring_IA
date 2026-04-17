@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Config } from './config';
+import { ConfigService } from './config-service';
 import { environment } from '../environments/environment';
 
-describe('Config', () => {
+describe('ConfigService', () => {
   afterEach(() => {
     delete (window as any).__APP_CONFIG__;
     TestBed.resetTestingModule();
@@ -11,13 +11,13 @@ describe('Config', () => {
 
   it('should be created', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Config);
+    const service = TestBed.inject(ConfigService);
     expect(service).toBeTruthy();
   });
 
   it('exposes default environment values', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Config);
+    const service = TestBed.inject(ConfigService);
 
     expect(service.getApiBaseUrl()).toBe(environment.apiUrl);
     expect(service.getTimeoutMs()).toBe(environment.timeoutMs);
@@ -26,7 +26,7 @@ describe('Config', () => {
 
   it('override() updates configuration values', () => {
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Config);
+    const service = TestBed.inject(ConfigService);
 
     service.override({ apiBaseUrl: 'https://api.example', timeoutMs: 1234, maxHistory: 7 });
 
@@ -38,7 +38,7 @@ describe('Config', () => {
   it('constructor reads window.__APP_CONFIG__ when present', () => {
     (window as any).__APP_CONFIG__ = { apiBaseUrl: 'https://from-window', timeoutMs: 2222, maxHistory: 9 };
     TestBed.configureTestingModule({});
-    const service = TestBed.inject(Config);
+    const service = TestBed.inject(ConfigService);
 
     expect(service.getApiBaseUrl()).toBe('https://from-window');
     expect(service.getTimeoutMs()).toBe(2222);

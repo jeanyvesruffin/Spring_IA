@@ -8,7 +8,7 @@ export type AppConfigOptions = Partial<{
 }>;
 
 @Injectable({ providedIn: 'root' })
-export class Config {
+export class ConfigService {
   readonly apiBaseUrl = signal<string>(environment.apiUrl);
   readonly timeoutMs = signal<number>(environment.timeoutMs ?? 10000);
   readonly maxHistory = signal<number>(environment.maxHistory ?? 50);
