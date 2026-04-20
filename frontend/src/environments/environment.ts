@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   apiUrl: '',
-  timeoutMs: 10000,
+  timeoutMs: 300000, // 300 secondes 5 min
   maxHistory: 50,
 };
