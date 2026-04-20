@@ -1,0 +1,73 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 260px;
+  background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+  border-right: 1px solid rgba(0, 255, 255, 0.08);
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.08);
+}
+
+.logo-icon {
+  color: #00e5ff;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.logo-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #e6edf3;
+  letter-spacing: 1px;
+}
+
+.active-link {
+  background: rgba(0, 229, 255, 0.08) !important;
+  border-left: 3px solid #00e5ff;
+}
+
+.top-toolbar {
+  background: rgba(13, 17, 23, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.toolbar-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-left: 8px;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.status-icon {
+  color: #00e676;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.page-content {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  background: #0d1117;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}

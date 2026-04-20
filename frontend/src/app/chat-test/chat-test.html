@@ -1,0 +1,37 @@
+<mat-card class="glass-card chat-card">
+  <div class="page-header">
+    <mat-icon>chat</mat-icon>
+    <h2>Chat IA</h2>
+  </div>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Votre message</mat-label>
+    <input
+      matInput
+      placeholder="Posez une question à l'IA..."
+      [value]="message()"
+      (input)="message.set($any($event.target).value)"
+      (keydown.enter)="send()"
+      aria-label="Message input"
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="send()" [disabled]="!canSend()">
+      <mat-icon>send</mat-icon>
+      Envoyer
+    </button>
+    @if (inFlight()) {
+      <mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner>
+    }
+  </div>
+
+  @if (response() !== null) {
+    <div class="response">
+      <h3>Réponse</h3>
+      <mat-card class="glass-card response-card">
+        <pre class="response-pre">{{ response() }}</pre>
+      </mat-card>
+    </div>
+  }
+</mat-card>

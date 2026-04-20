@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8086',
+  apiUrl: '',
   timeoutMs: 10000,
   maxHistory: 50,
 };

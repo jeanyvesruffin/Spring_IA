@@ -16,7 +16,7 @@ export class AiService {
   sendMessage(userInput: string): Observable<string> {
     const baseUrl = this.configuration.getApiBaseUrl();
     const url = `${baseUrl}/ai`;
-    const parametres = new HttpParams().set('input', userInput);
+    const parametres = new HttpParams().set('userInput', userInput);
 
     return this.http.get(url, { params: parametres, responseType: 'text' }).pipe(
       timeout(this.configuration.getTimeoutMs()),

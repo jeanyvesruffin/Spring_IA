@@ -1,0 +1,62 @@
+<section class="tester">
+  <div class="page-header">
+    <mat-icon>api</mat-icon>
+    <h2>Testeur d'endpoints</h2>
+  </div>
+
+  <mat-card class="tester-card">
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="send()" class="tester-form">
+        <div class="url-row">
+          <mat-form-field appearance="fill" class="method-field">
+            <mat-label>Méthode</mat-label>
+            <mat-select formControlName="method">
+              @for (m of methods; track m) {
+                <mat-option [value]="m">{{ m }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="url-field">
+            <mat-label>URL</mat-label>
+            <input matInput formControlName="url" placeholder="/ai?userInput=Hello" />
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="!canSend()" class="send-btn">
+            @if (inFlight()) {
+              <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
+            } @else {
+              <ng-container>
+                <mat-icon>send</mat-icon>
+                Envoyer
+              </ng-container>
+            }
+          </button>
+        </div>
+
+        @if (form.controls.method.value === 'POST' || form.controls.method.value === 'PUT') {
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Corps de la requête (JSON)</mat-label>
+            <textarea matInput formControlName="body" rows="4" placeholder='{"key": "value"}'></textarea>
+          </mat-form-field>
+        }
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  @if (response() !== null) {
+    <mat-card class="response-card">
+      <mat-card-content>
+        <div class="response-header">
+          <span class="response-label">Réponse</span>
+          @if (statusCode() !== null) {
+            <span class="status-badge" [class.success]="statusCode()! >= 200 && statusCode()! < 300" [class.error]="statusCode()! >= 400">
+              {{ statusCode() }}
+            </span>
+          }
+        </div>
+        <pre class="response-body">{{ response() }}</pre>
+      </mat-card-content>
+    </mat-card>
+  }
+</section>

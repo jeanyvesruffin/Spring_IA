@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { AiService } from './ai-service';
 import { ConfigService } from './config-service';
@@ -21,6 +22,7 @@ describe('AiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ConfigService, useValue: configStub },
         { provide: StorageService, useValue: storageSpy },
@@ -43,7 +45,7 @@ describe('AiService', () => {
     const promise = firstValueFrom(service.sendMessage('hello'));
 
     const req = httpMock.expectOne(
-      (r) => r.url === 'http://api/ai' && r.params.get('input') === 'hello',
+      (r) => r.url === 'http://api/ai' && r.params.get('userInput') === 'hello',
     );
     expect(req.request.method).toBe('GET');
     expect(req.request.responseType).toBe('text');
@@ -65,6 +67,7 @@ describe('AiService', () => {
     } as unknown as HttpErrorHandlerService;
     TestBed.configureTestingModule({
       providers: [
+        provideHttpClient(),
         provideHttpClientTesting(),
         { provide: ConfigService, useValue: configStub },
         { provide: StorageService, useValue: storageSpy },
@@ -77,7 +80,7 @@ describe('AiService', () => {
     const promise = firstValueFrom(service.sendMessage('x'));
 
     const req = httpMock.expectOne(
-      (r) => r.url === 'http://api/ai' && r.params.get('input') === 'x',
+      (r) => r.url === 'http://api/ai' && r.params.get('userInput') === 'x',
     );
     req.error(new ProgressEvent('error'), { status: 500, statusText: 'Server Error' });
 

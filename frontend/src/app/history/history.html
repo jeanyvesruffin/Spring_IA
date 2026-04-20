@@ -1,0 +1,43 @@
+<section class="history">
+  <div class="page-header">
+    <mat-icon>history</mat-icon>
+    <h2>Historique</h2>
+    <span class="spacer"></span>
+    <button mat-stroked-button (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+      Actualiser
+    </button>
+    <button mat-stroked-button color="warn" (click)="clear()" [disabled]="history().length === 0">
+      <mat-icon>delete</mat-icon>
+      Effacer
+    </button>
+  </div>
+
+  @if (history().length) {
+    <div class="history-list">
+      @for (item of history(); track item.id) {
+        <mat-card class="history-card">
+          <mat-card-content>
+            <div class="record-header">
+              <mat-icon class="input-icon">person</mat-icon>
+              <span class="record-input">{{ item.input }}</span>
+              <span class="record-time">{{ item.timestamp | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            @if (item.response) {
+              <div class="record-response">
+                <mat-icon class="response-icon">smart_toy</mat-icon>
+                <pre class="response-text">{{ item.response }}</pre>
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <mat-icon class="empty-icon">chat_bubble_outline</mat-icon>
+      <p>Aucun historique de conversation.</p>
+      <p class="hint">Envoyez un message depuis le Chat pour commencer.</p>
+    </div>
+  }
+</section>

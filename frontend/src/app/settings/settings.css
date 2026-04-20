@@ -1,0 +1,42 @@
+:host { display: block; }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.page-header mat-icon {
+  color: var(--accent-cyan, #00e5ff);
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: var(--text-primary, #e6edf3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.settings-card {
+  max-width: 600px;
+  background: rgba(22, 27, 34, 0.8) !important;
+  border: 1px solid rgba(0, 229, 255, 0.08);
+  border-radius: 12px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full-width { width: 100%; }
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
