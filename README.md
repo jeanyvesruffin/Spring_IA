@@ -72,7 +72,23 @@ Le `ChatClient` repose sur les deux stacks — le mode non-streaming utilise la 
 
 ### Demarrage
 
-Au demarrage. 
+Au demarrage.
+Démarrer Ollama en local si vous utilisé cela 
+
+```sh
+ollama signin
+ollama pull gpt-oss:120b-cloud
+curl http://localhost:11434/api/chat -d '{
+  "model": "gpt-oss:120b-cloud",
+  "messages": [{
+    "role": "user",
+    "content": "Why is the sky blue?"
+  }],
+  "stream": false
+}'
+```
+
+Puis
 
 ```sh
 mvn clean install
